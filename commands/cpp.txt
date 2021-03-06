@@ -1,0 +1,29 @@
+BASIC COMMANDS(C++)
+
+compile = g++ filename.cpp -o filename 
+
+compile with gdb = g++ filename.cpp -o filename -g
+
+run = ./filename
+
+run with gdb  =  gdb filename
+
+GDB COMMANDS
+
+break point =  b line.no
+
+run = r
+
+print = p variable_name
+
+next line = n   ( executes nth line and shows (n+1)th line )
+
+step through = s (executes the step and proceeds to the next step )
+
+quit = q
+
+show code = l
+
+
+
+
