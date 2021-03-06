@@ -2,100 +2,118 @@
 #include <vector>
 using namespace std;
 
-int y;
-bool boool1 = true;
-bool boool2 = true;
+// Enumerate Intput operation
+enum oper {
+    SIZE_OF_STACK=1,
+    TOP_OF_STACK,
+    POP_OUT_OF_STACK,
+    PUSH_TO_STACK,
+    EXIT
+};
 
-int size_of_stack(vector <int> v )
+class Stack
 {
-    y = v.size();
-    return y;
-}
+    public:
+        // vector to store contents of stack
+        vector<int> db;
+        // Default Constructor
+        Stack()
+        {
+            db.clear();
+        }
 
-int top_of_stack(vector <int> v)
-{
-    if(v.empty()== true){
-        cout << "stack is empty, try pushing elements first" << endl;
-        boool2 = false;
-        return 0;
-    }
-    y = v.back();
-    return y;
-}
+        // Member functions of stack
+        int getsizeofstack()
+        {
+            int y;
 
-int pop_stack(vector <int> &v)
-{
-    if(v.empty()== true){
-        cout << "stack is empty, nothing to pop, try pushing elements first" << endl;
-        boool1 = false;
-        return 0;
-    }
-    y = v.back();
-    v.pop_back();
-    return y;
-}
+            return db.size();
+        }
 
-void push_stack(vector <int> &v, int x)
-{
-    v.push_back(x);
-}
+        int gettopofstack()
+        {
+            if(db.empty() == true){
+                cout << "stack is empty, try pushing elements first" << endl;
+                return -1;
+            }
+            return db.back();
+        }
+
+        int popfromstack()
+        {
+            int y;
+
+            if(db.empty() == true){
+                cout << "stack is empty, nothing to pop, try pushing elements first" << endl;
+                return -1;
+            }
+            y = db.back();
+            db.pop_back();
+            return y;
+        }
+
+        void pushtostack(int x)
+        {
+            db.push_back(x);
+        }
+};
 
 int main(){
+    // Input Operation
+    int oper = 0;
+    // return value
+    int ret_val = 0;
+    // Input element;
+    int input = 0;
 
-    vector <int> v;
+    Stack stack;
 
-    while(1)
-    {
+    while(true) {
+        cout << "\nchoose an option\n 1) size of stack \n 2) top of stack \n "
+            "3) pop from stack \n 4) push to stack\n 5) to exit" << endl;
+        cin >> oper;
 
-    boool1= true; boool2= true;    
-    int a=0;
-    cout << "\nchoose an option\n 1) size of stack \n 2) top of stack \n 3) pop from stack \n 4) push in stack\n" << endl;
-    cin >> a;
-    
-    int temp = 0, b;
-
-    switch (a)
-    {
-    case 1:
-        {    temp = size_of_stack(v);
-             cout << "size of stack is : "<< temp << endl;
-             break;
-        }
-    case 2:
+        switch (oper)
         {
-            temp = top_of_stack(v);
-            if(boool2 == false)
-            {
+            case SIZE_OF_STACK:
+                {   ret_val = stack.getsizeofstack();
+                    cout << "size of stack is : "<< ret_val << endl;
+                    break;
+                }
+            case TOP_OF_STACK:
+                {
+                    ret_val = stack.gettopofstack();
+                    if(ret_val == -1)
+                    {
+                        break;
+                    }
+                    cout << "top of stack is : " << ret_val << endl;
+                    break;
+                }
+            case POP_OUT_OF_STACK:
+                {
+                    ret_val = stack.popfromstack();
+                    if(ret_val == -1)
+                    {
+                        break;
+                    }
+                    cout << "popped element is : " << ret_val << endl;
+                    break;
+                }
+            case PUSH_TO_STACK:
+                {
+                    cout << "enter the int to push" << endl;
+                    cin >> input;
+                    stack.pushtostack(input);
+                    cout << "element " << input << " pushed successfully" << endl;
+                    break;
+                }
+            case EXIT:
+                cout << "program exited" << endl;
+                return 0;
+            default:
                 break;
-            }
-            cout << "top of stack is :" << temp << endl;
-            break;
         }
-    case 3:
-        {
-            temp = pop_stack(v);
-            if(boool1 == false)
-            {
-                break;
-            }
-            cout << "popped element is :" << temp << endl;
-            break;
-        }
-    case 4:
-        {
-            cout << "enter the int to push" << endl;
-            cin >> b;
-            push_stack(v,b);
-            cout << "element "<< b << " pushed successfully"<< endl;
-            break;
-        }
-    
-    default:
-        break;
     }
-
-    //cout << temp << endl;
-
-    }
-
+    return 0;
 }
